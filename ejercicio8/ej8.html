@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Ejercicio 8 - Votaciones en gráfico</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js" type="text/javascript"></script>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous">
+    <style type="text/css">
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        text-align: center;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <h1>Votaciones</h1>
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <button type="button" class="btn btn-vote btn-outline-primary btn-sm" onclick="vote(0)">Socialistas</button>
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-vote btn-outline-primary btn-sm" onclick="vote(1)">Liberales</button>
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-vote btn-outline-primary btn-sm" onclick="vote(2)">Animalistas</button>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-2">
+          <div class="col-auto">
+            <button type="button" class="btn btn-vote btn-outline-primary btn-sm" onclick="vote(3)">Centristas</button>
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-vote btn-outline-primary btn-sm" onclick="vote(4)">Ecologistas</button>
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="resetVotes()">Reset</button>
+          </div>
+        <canvas id="votingChart" width="200" height="200" class="mt-4"></canvas>
+      </div>
+    </div>
+    <div class="text-center mt-4 mb-5">
+      <a href="../index.html" class="btn btn-outline-info btn-sm">Back</a>
+    </div>
+    <script type="text/javascript">
+      // Inicializamos los votos en 0 para cada partido
+      const votes = [0, 0, 0, 0, 0];
+
+      // Nombres de los partidos
+      const partyNames = ["Socialistas", "Liberales", "Animalistas", "Centristas", "Ecologistas"];
+
+      // Configuramos el gráfico de Chart.js
+      const ctx = document.getElementById("votingChart").getContext("2d");
+      const votingChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: partyNames,
+          datasets: [{
+            label: "Votos",
+            data: votes,
+            backgroundColor: [
+              "rgb(255, 99, 132)",
+              "rgb(54, 162, 235)",
+              "rgb(255, 206, 86)",
+              "rgb(153, 102, 255)",
+              "rgb(156, 206, 51)"
+            ],
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "top",
+            },
+          }
+        }
+      });
+
+      // Función para añadir un voto a un partido específico
+      function vote(index) {
+        votes[index]++;
+        votingChart.update();
+      }
+
+      // Función para resetear los votos a cero
+      function resetVotes() {
+        for (let i = 0; votes.length > i; i++) {
+          votes[i] = 0;
+        }
+        votingChart.update();
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
+  </body>
+</html>

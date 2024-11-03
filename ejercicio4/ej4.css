@@ -1,0 +1,15 @@
+.additional {
+  /* vuestro CSS aquí */
+    display: inline-block;
+}
+
+.additional.hidden {
+  /* vuestro CSS aquí */
+    display: none;
+
+}
+
+.additional.visible {
+  /* vuestro CSS aquí */
+    display: inline;
+}
